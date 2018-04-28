@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="80dp"
+            android:layout_height="80dp">
+
+            <com.example.ali.udpvideochat.sample.CircularImageView
+                android:id="@+id/imageContactItemAvatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/img_follw"
+                app:civ_border="false"
+                app:civ_shadow="false"/>
+
+            <LinearLayout
+                android:id="@+id/layoutContactItemState"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/lin_solid_adapter_offline"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.example.ali.udpvideochat.sample.Font
+                    android:id="@+id/font"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/offline"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="8dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.example.ali.udpvideochat.sample.FontViews.TextViewCustomFont
+                    android:id="@+id/txtContactItemSurname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="مهندس رحیمی"
+                    android:textSize="16sp"
+                    app:fontName="IRANSansMobile_Medium"/>
+
+                <com.example.ali.udpvideochat.sample.FontViews.TextViewCustomFont
+                    android:id="@+id/txtContactItemIp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="left"
+                    android:text="sony xpria x"
+                    android:textColor="@color/color_2"
+                    android:textSize="12sp"
+                    app:fontName="IRANSansMobile_Light"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/layoutButtonVoiceCall"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="2dp"
+                    android:background="@drawable/lin_solid_adpter_vioce_call"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <com.example.ali.udpvideochat.sample.Font
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="&#xf2aa;"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutButtonVideoCall"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="2dp"
+                    android:background="@drawable/lin_solid_adpter_video_call"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <com.example.ali.udpvideochat.sample.Font
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="&#xf2e0;"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:background="#1d000000"
+        android:orientation="vertical"
+        />
+</LinearLayout>

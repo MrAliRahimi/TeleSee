@@ -1,0 +1,110 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true">
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:keepScreenOn="true"
+        android:layout_height="match_parent">
+
+        <com.example.ali.udpvideochat.view.PercentFrameLayout
+            android:id="@+id/layoutRemoteVideo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <org.webrtc.SurfaceViewRenderer
+                android:id="@+id/viewRemoteVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </com.example.ali.udpvideochat.view.PercentFrameLayout>
+
+        <com.example.ali.udpvideochat.view.PercentFrameLayout
+            android:id="@+id/layoutLocalVideo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <org.webrtc.SurfaceViewRenderer
+                android:id="@+id/viewLocalVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </com.example.ali.udpvideochat.view.PercentFrameLayout>
+
+        <FrameLayout
+            android:id="@+id/callFragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textOtherPartySurname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/buttonsCallContainer"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="8dp"
+                    android:textSize="24sp" />
+
+                <LinearLayout
+                    android:id="@+id/buttonsCallContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/textCaptureFormatTextCall"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="32dp"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/buttonEndCall"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="16dp"
+
+                        android:contentDescription="@string/disconnect_call" />
+
+                    <ImageButton
+                        android:id="@+id/buttonSwitchCamera"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@android:drawable/ic_menu_camera"
+                        android:contentDescription="@string/switch_camera" />
+
+                    <ImageButton
+                        android:id="@+id/buttonToggleMic"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@android:drawable/ic_btn_speak_now"
+                        android:contentDescription="@string/toggle_mic" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textCaptureFormatTextCall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/seekbarCaptureFormatSliderCall"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/capture_format_change_text"
+                    android:textSize="16sp" />
+
+                <SeekBar
+                    android:id="@+id/seekbarCaptureFormatSliderCall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="8dp"
+                    android:progress="50" />
+            </RelativeLayout>
+        </FrameLayout>
+    </RelativeLayout>
+
+</FrameLayout>
+

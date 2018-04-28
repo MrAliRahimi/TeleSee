@@ -1,0 +1,106 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ali.udpvideochat.view.IncomingCallFragment">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/imgBg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/img_follw" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/lin_gradient_bg_acitivity_call"
+            android:orientation="vertical"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.example.ali.udpvideochat.sample.FontViews.TextViewCustomFont
+                android:id="@+id/textCallerSurname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:textSize="22sp"
+                app:fontName="IRANSansMobile_Medium" />
+
+            <com.example.ali.udpvideochat.sample.FontViews.TextViewCustomFont
+                android:id="@+id/textCallerIp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                app:fontName="IRANSansMobile_Light" />
+        </LinearLayout>
+
+        <com.example.ali.udpvideochat.sample.CircularImageView
+            android:id="@+id/circularImageView2"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/img_follw"
+            app:civ_border="true"
+            app:civ_border_color="#ffffff"
+            app:civ_border_width="4dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginLeft="32dp"
+                android:background="@drawable/lin_solid_adapter_online"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/layoutAnswerCall">
+
+                <com.example.ali.udpvideochat.sample.Font
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="&#xf2be;"
+                    android:textColor="#ffffff"
+                    android:textSize="38sp" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginRight="32dp"
+                android:background="@drawable/lin_solid_adapter_offline"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/layoutRejectCall">
+
+                <com.example.ali.udpvideochat.sample.Font
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="&#xf2b4;"
+                    android:textColor="#ffffff"
+                    android:textSize="38sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>

@@ -1,0 +1,312 @@
+/*
+ * Copyright (C) 2012 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.example.ali.udpvideochat;
+
+import android.content.Context;
+import android.content.pm.ServiceInfo;
+import android.net.nsd.NsdServiceInfo;
+import android.net.nsd.NsdManager;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+public abstract class NsdHelper {
+    public interface INsdHelper{
+        void onServiceRegistered(NsdServiceInfo serviceInfo);
+        void onServiceRegistrationFailed(NsdServiceInfo serviceInfo);
+        void onServiceFound(NsdServiceInfo serviceInfo);
+        void onServiceLost(NsdServiceInfo serviceInfo);
+        void onErrorHappened(Error error);
+    }
+    private static NsdHelper instance;
+
+    private Context mContext;
+
+    private NsdManager mNsdManager;
+    //private NsdManager.ResolveListener mResolveListener;
+    private NsdManager.DiscoveryListener mDiscoveryListener;
+    private NsdManager.RegistrationListener mRegistrationListener;
+
+    private static final String TAG = "NsdHelper";
+    private String mServiceName = "";
+    private String mServiceIP = "";
+    private INsdHelper mCallback;
+
+    //prevent any call outside of class
+    public NsdHelper() {}
+
+    public static NsdHelper Instance(){
+        //if no instance is initialized yet then create new instance
+        //else return stored instance
+        if (instance == null)
+        {
+            instance = new NsdHelper();
+        }
+        return instance;
+    }
+
+    public void init(Context context,INsdHelper callback){
+        if(mNsdManager == null) {
+            mContext = context;
+            mCallback = callback;
+            mNsdManager = (NsdManager) context.getSystemService(Context.NSD_SERVICE);
+            initializeNsd();
+        }
+    }
+
+    public void initializeNsd() {
+    }
+
+    private void initializeDiscoveryListener() {
+        mDiscoveryListener = new NsdManager.DiscoveryListener() {
+
+            @Override
+            public void onDiscoveryStarted(String regType) {
+                try {
+                    Log.i(TAG, "Service discovery started");
+                }catch (Exception e){
+                    Log.e(TAG,"onDiscoveryStarted:"+e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onServiceFound(NsdServiceInfo service) {
+                try {
+                    Log.i(TAG, "Service discovery success" + service);
+                    if (!service.getServiceType().equals(Constants.NSD_SERVICE_TYPE)) {
+                        Log.i(TAG, "Unknown Service Type: " + service.getServiceType());
+                    } else if (service.getServiceName().startsWith(Constants.NSD_SERVICE_NAME)) {
+                        mNsdManager.resolveService(service, newResolveListener());
+                    }
+                }catch (Exception e){
+                    Log.e(TAG,"onServiceLost:"+e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onServiceLost(NsdServiceInfo service) {
+                try {
+                    Log.e(TAG, "service lost" + service);
+                    if(mCallback != null)
+                        mCallback.onServiceLost(service);
+                }catch (Exception e){
+                    Log.e(TAG,"onServiceLost:"+e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onDiscoveryStopped(String serviceType) {
+                try {
+                    Log.i(TAG, "Discovery stopped: " + serviceType);
+                }catch (Exception e){
+                    Log.e(TAG,"onDiscoveryStopped:"+e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onStartDiscoveryFailed(String serviceType, int errorCode) {
+                try {
+                    Log.e(TAG, "StartDiscovery failed: Error code:" + errorCode);
+                    if(mCallback != null)
+                        mCallback.onErrorHappened(Error.NSD_START_DISCOVERY_FAILED);
+                }catch (Exception e){
+                    Log.e(TAG,"onStartDiscoveryFailed:"+e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onStopDiscoveryFailed(String serviceType, int errorCode) {
+                try {
+                    Log.e(TAG, "StopDiscovery failed: Error code:" + errorCode);
+                    if(mCallback != null)
+                        mCallback.onErrorHappened(Error.NSD_STOP_DISCOVERY_FAILED);
+                }catch (Exception e){
+                    Log.e(TAG,"onStopDiscoveryFailed:"+e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        };
+    }
+
+    private NsdManager.ResolveListener newResolveListener() {
+        return new NsdManager.ResolveListener() {
+
+            @Override
+            public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode) {
+                try {
+                    Log.e(TAG, "Resolve Failed: " + serviceInfo + "\tError Code: " + errorCode);
+                    if(mCallback != null)
+                        mCallback.onErrorHappened(Error.NSD_RESOLVE_SERVICE_INFO_FAILED);
+                    switch (errorCode) {
+                        case NsdManager.FAILURE_ALREADY_ACTIVE:
+//                            Log.e(TAG, "FAILURE_ALREADY_ACTIVE");
+                            // Just try again...
+                            mNsdManager.resolveService(serviceInfo, newResolveListener());
+                            break;
+                        case NsdManager.FAILURE_INTERNAL_ERROR:
+//                            Log.e(TAG, "FAILURE_INTERNAL_ERROR");
+                            break;
+                        case NsdManager.FAILURE_MAX_LIMIT:
+//                            Log.e(TAG, "FAILURE_MAX_LIMIT");
+                            break;
+                    }
+                }catch (Exception e){
+                    Log.e(TAG,"onResolveFailed:"+e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onServiceResolved(NsdServiceInfo serviceInfo) {
+                try {
+                    Log.i(TAG, "Resolve Succeeded. " + serviceInfo);
+                    if (mCallback != null)
+                        mCallback.onServiceFound(serviceInfo);
+                }catch (Exception e){
+                    Log.e(TAG,"onServiceResolved:"+e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        };
+    }
+
+    private void initializeRegistrationListener() {
+        mRegistrationListener = new NsdManager.RegistrationListener() {
+
+            @Override
+            public void onServiceRegistered(NsdServiceInfo nsdServiceInfo) {
+                try {
+                    mServiceName = nsdServiceInfo.getServiceName();
+                    nsdServiceInfo.setServiceType(Constants.NSD_SERVICE_TYPE);
+                    if(mCallback != null)
+                        mCallback.onServiceRegistered(nsdServiceInfo);
+                    mNsdManager.resolveService(nsdServiceInfo, newResolveListener());
+                    Log.i(TAG, "Service registered: " + mServiceName);
+                }catch (Exception e){
+                    Log.e(TAG,"onServiceRegistered:"+e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onRegistrationFailed(NsdServiceInfo serviceInfo, int arg1) {
+                try {
+                    Log.d(TAG, "Service registration failed: " + arg1);
+                    if(mCallback != null) {
+                        //sent to release NsdHelperLock in Service
+                        mCallback.onServiceRegistrationFailed(serviceInfo);
+                        if(arg1 == 4)
+                            mCallback.onErrorHappened(Error.NSD_REGISTRATION_FAILED_FAILURE_MAX_LIMIT);
+                        else
+                            mCallback.onErrorHappened(Error.NSD_REGISTRATION_FAILED);
+                    }
+                }catch (Exception e){
+                    Log.e(TAG,"onRegistrationFailed:"+e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onServiceUnregistered(NsdServiceInfo arg0) {
+                try {
+                    Log.i(TAG, "Service unregistered: " + arg0.getServiceName());
+                }catch (Exception e){
+                    Log.e(TAG,"onServiceUnregistered:"+e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onUnregistrationFailed(NsdServiceInfo serviceInfo, int errorCode) {
+                try {
+                    Log.e(TAG, "Service unregistration failed: " + errorCode);
+                    if(mCallback != null)
+                        mCallback.onErrorHappened(Error.NSD_UNREGISTRATION_FAILED);
+                }catch (Exception e){
+                    Log.e(TAG,"onUnregistrationFailed:"+e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+
+        };
+    }
+
+    public void registerService(String ip, int port) {
+        try {
+            mServiceIP = ip;
+            //tearDown();  // Cancel any previous registration request
+            if(mRegistrationListener == null)
+                initializeRegistrationListener();
+            NsdServiceInfo serviceInfo  = new NsdServiceInfo();
+            serviceInfo.setPort(port);
+            serviceInfo.setServiceName(Constants.NSD_SERVICE_NAME);
+            serviceInfo.setServiceType(Constants.NSD_SERVICE_TYPE);
+
+            mNsdManager.registerService(
+                    serviceInfo, NsdManager.PROTOCOL_DNS_SD, mRegistrationListener);
+        }catch (Exception e){
+            Log.e(TAG,"registerService:"+e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
+
+    }
+
+    public void discoverServices() {
+        stopDiscovery();  // Cancel any existing discovery request
+        if(mDiscoveryListener == null)
+            initializeDiscoveryListener();
+        mNsdManager.discoverServices(Constants.NSD_SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, mDiscoveryListener);
+    }
+
+    public void stopDiscovery() {
+        if (mDiscoveryListener != null) {
+            try {
+                mNsdManager.stopServiceDiscovery(mDiscoveryListener);
+            }catch (Exception e){
+                Log.e(TAG,"stopDiscovery:"+e.getMessage());
+                e.printStackTrace();
+            } finally {
+                //mDiscoveryListener = null;
+            }
+        }
+    }
+
+//    public NsdServiceInfo getChosenServiceInfo() {
+//        return mService;
+//    }
+
+    public void tearDown() {
+        try {
+            if (mRegistrationListener != null)
+                mNsdManager.unregisterService(mRegistrationListener);
+        }catch (Exception e){
+            Log.e(TAG,"tearDown:"+e.getMessage());
+            e.printStackTrace();
+        } finally {
+            //mRegistrationListener = null;
+        }
+    }
+
+}

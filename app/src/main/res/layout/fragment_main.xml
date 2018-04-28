@@ -1,0 +1,194 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ali.udpvideochat.view.MainFragment">
+
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:fitsSystemWindows="false">
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:background="#ffffff"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="false">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                app:contentScrim="#ffffff"
+                app:expandedTitleMarginEnd="48dp"
+                app:expandedTitleMarginStart="48dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.example.ali.udpvideochat.sample.diagonallayout.DiagonalLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:background="#ffffff"
+                        android:elevation="10dp"
+                        app:diagonal_angle="10"
+                        app:diagonal_direction="right"
+                        app:diagonal_position="bottom">
+
+                        <ImageView
+                            android:id="@+id/imageViewProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/img_follw" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_5" />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="264dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="56dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <com.example.ali.udpvideochat.sample.iconswitch.IconSwitch
+                                    android:id="@+id/switch_contact_list"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="16dp"
+                                    android:layout_marginTop="2dp"
+                                    app:isw_active_tint_icon_left="#fff"
+                                    app:isw_active_tint_icon_right="#fff"
+                                    app:isw_background_color="#fff"
+                                    app:isw_icon_left="@drawable/ic_format_list_bulleted_white_18dp"
+                                    app:isw_icon_right="@drawable/ic_location_on_white_18dp"
+                                    app:isw_inactive_tint_icon_left="@color/colorPrimaryDark"
+                                    app:isw_inactive_tint_icon_right="@color/colorPrimaryDark"
+                                    app:isw_thumb_color_left="@color/colorPrimaryDark"
+                                    app:isw_thumb_color_right="@color/colorPrimaryDark"/>
+
+                                <Space
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1" />
+
+                                <com.example.ali.udpvideochat.sample.Font
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginRight="24dp"
+                                    android:gravity="center_vertical"
+                                    android:text="&#xf197;"
+                                    android:textColor="#ffffff"
+                                    android:textSize="32sp" />
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="96dp"
+                                android:layout_centerInParent="true"
+                                android:orientation="horizontal">
+
+                                <com.example.ali.udpvideochat.sample.CircularImageView
+                                    android:id="@+id/circularImageView2"
+                                    android:layout_width="96dp"
+                                    android:layout_height="96dp"
+                                    android:layout_marginLeft="24dp"
+                                    android:src="@drawable/img_follw"
+                                    app:civ_border="true"
+                                    app:civ_border_color="#ffffff"
+                                    app:civ_border_width="1dp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="24dp"
+                                    android:layout_marginRight="24dp"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="48dp"
+                                        android:gravity="center_vertical"
+                                        android:orientation="horizontal">
+
+                                        <com.example.ali.udpvideochat.sample.FontViews.TextViewCustomFont
+                                            android:id="@+id/textMainFragmentProfileSurname"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="left"
+                                            android:textColor="#ffffff"
+                                            android:textSize="18sp"
+                                            app:fontName="IRANSansMobile_Medium" />
+
+                                        <com.example.ali.udpvideochat.sample.Font
+                                            android:layout_width="16dp"
+                                            android:layout_height="match_parent"
+                                            android:gravity="center"
+                                            android:text="&#xf19b;"
+                                            android:textColor="#ffffff"
+                                            android:textSize="18sp" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="#8dffffff"
+                                        android:orientation="horizontal" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="48dp"
+                                        android:gravity="center_vertical"
+                                        android:orientation="horizontal">
+
+                                        <com.example.ali.udpvideochat.sample.FontViews.TextViewCustomFont
+                                            android:id="@+id/textMainFragmentProfileIp"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="left"
+                                            android:textColor="#ffffff"
+                                            app:fontName="IRANSansMobile_UltraLight" />
+
+                                        <com.example.ali.udpvideochat.sample.Font
+                                            android:layout_width="16dp"
+                                            android:layout_height="match_parent"
+                                            android:gravity="center"
+                                            android:text="&#xf1c6;"
+                                            android:textColor="#ffffff"
+                                            android:textSize="18sp" />
+                                    </LinearLayout>
+                                </LinearLayout>
+                            </LinearLayout>
+                        </RelativeLayout>
+                    </com.example.ali.udpvideochat.sample.diagonallayout.DiagonalLayout>
+                </LinearLayout>
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewContactList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
+</FrameLayout>

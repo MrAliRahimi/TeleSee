@@ -1,0 +1,50 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+
+    defaultConfig {
+        applicationId "com.example.ali.udpvideochat"
+        minSdkVersion 17
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+        }
+    }
+    buildTypes {
+        release {
+            //minifyEnabled true
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    //compile "com.github.andriydruk:rxdnssd:0.8.4"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile(name: 'library-release', ext: 'aar')
+    compile(name: 'rxdnssd-release', ext: 'aar')
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:support-v4:25.2.0'
+    compile 'com.android.support:recyclerview-v7:25.2.0'
+    compile 'com.android.support:appcompat-v7:25.2.0'
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.android.support:support-annotations:25.2.0'
+    compile 'com.android.support:design:25.2.0'
+    implementation files('libs/libjingle_peerconnection.jar')
+    implementation files('libs/base_java.jar')
+    implementation files('libs/autobanh.jar')
+
+}
